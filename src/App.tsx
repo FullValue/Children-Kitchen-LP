@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import MentionsLegales from './MentionsLegales';
 import Confidentialite from './Confidentialite';
 import CGV from './CGV';
