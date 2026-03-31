@@ -24,13 +24,14 @@ import {
   Star,
   ArrowRight
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import MentionsLegales from './MentionsLegales';
-import Confidentialite from './Confidentialite';
-import CGV from './CGV';
-import DataDeletion from './DataDeletion';
+
+const MentionsLegales = lazy(() => import('./MentionsLegales'));
+const Confidentialite = lazy(() => import('./Confidentialite'));
+const CGV = lazy(() => import('./CGV'));
+const DataDeletion = lazy(() => import('./DataDeletion'));
 
 function Landing() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -584,13 +585,15 @@ export default function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/mentions-legales" element={<MentionsLegales />} />
-        <Route path="/confidentialite" element={<Confidentialite />} />
-        <Route path="/cgv" element={<CGV />} />
-        <Route path="/data-deletion" element={<DataDeletion />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-slate-50"><div className="w-12 h-12 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div></div>}>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/confidentialite" element={<Confidentialite />} />
+          <Route path="/cgv" element={<CGV />} />
+          <Route path="/data-deletion" element={<DataDeletion />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }
